@@ -8,9 +8,30 @@ inline bool checkIfFileExist(const char* name) {
 	return (access(name, 0) != -1);
 }
 
-void runFileWithVS(const char* filename) {
-	char buffer[100] = "devenv ";
+void compileFileWithCL(const char* filename) {
+	char buffer[100] = "cl ";
 	strcat(buffer, filename);
+	//cout << "Running Command: " << buffer << endl;
+	system(buffer);
+}
+
+void runFile(const char* filename) {
+	char buffer[100] = "";
+	strcat(buffer, filename);
+
+	int bufferEnd;
+
+	for (int i = 0; ; i++) {
+		if (buffer[i] == '\0') {
+			bufferEnd = i;
+			break;
+		}
+	}
+
+	buffer[bufferEnd - 1] = 'e';
+	buffer[bufferEnd - 2] = 'x';
+	buffer[bufferEnd - 3] = 'e';
+
 	//cout << "Running Command: " << buffer << endl;
 	system(buffer);
 }
@@ -26,26 +47,26 @@ void createNewFile(const char* filename) {
 
 int main(int argc, char* argv[]) {
 
+	cout << argv[0] << endl;
+	cout << argv[1] << endl;
+
 	if (argc == 1) {
-		cout << "Visual Studio Caller by Sir Jackie" << endl;
+		cout << "C++ Source File Runner by Sir Jackie" << endl;
 		cout << "--------------------------------------" << endl;
-		cout << "Designed for open a c++ file in cmd with Visual Studio" << endl << "and not cause a blocking" << endl;
+		cout << "Designed for compile and run a c++ file in cmd easily." << endl;
 	}
 
 	else if (argc == 2) {
 		char* filename = argv[1];
 		if (checkIfFileExist(filename) == true) {
 			cout << "Loading.." << endl;
-			runFileWithVS(filename);
+			compileFileWithCL(filename);
+			system("clear");
+			runFile(filename);
 		}
 		else {
 			cout << "File Not Exist." << endl;
-
-			cout << "Creating File..." << endl;
-			createNewFile(filename);
-
-			cout << "Loading.." << endl;
-			runFileWithVS(filename);
+			return 0;
 		}
 	}
 
