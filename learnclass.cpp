@@ -32,10 +32,16 @@ void Student::show() {
 
 int main() {
 	{
-		Student xiaoming("XiaoMing", 10, 7.0f);
+		Student xiaoming("XiaoMing", 10, 7.0f);                // Create a class
 		xiaoming.show();
 
-		Student xiaowang("XiaoWang", 10, 8.0f);
+		Student xiaowang("XiaoWang", 10, 8.0f);                // Create another class
 		xiaowang.show();
+
+		Student xiaozhang = Student("XiaoZhang", 10, 6.0f);    // Create a class using another grammar
+		xiaozhang.show();
+
+		Student alice = { "Alice", 10, 5.0f };                 // Create a class using list initialize grammar
+		alice.show();
 	}
 }
