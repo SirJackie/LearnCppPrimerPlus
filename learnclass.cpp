@@ -13,6 +13,7 @@ public:
 	~Student();
 	void show();
 	void showConstly() const;
+	Student& longestDick(Student& sb);
 };
 
 Student::Student(const char* name, const int age, const float dickSize) {
@@ -37,6 +38,16 @@ void Student::showConstly() const {
 	cout << "DickSize: " << this->m_dickSize << endl;
 }
 
+Student& Student::longestDick(Student& sb) {
+	Student& sa = *this;
+	if (sa.m_dickSize > sb.m_dickSize) {
+		return sa;
+	}
+	else {
+		return sb;
+	}
+}
+
 int main() {
 	{
 		Student xiaoming("XiaoMing", 10, 7.0f);                // Create a class
@@ -54,9 +65,20 @@ int main() {
 
 	cout << "----------" << endl;
 
-	const Student a("John", 10, 10.0f);
-	//a.show();                           // ERROR!!! Invalid to use a not-const method for a const object
-	a.showConstly();                      // Pass.    Valid   to use a const     method for a const object
+	{
+		const Student a("John", 10, 10.0f);
+		//a.show();                           // ERROR!!! Invalid to use a not-const method for a const object
+		a.showConstly();                      // Pass.    Valid   to use a const     method for a const object
+	}
 
+	cout << "----------" << endl;
+
+	{
+		Student a("Ahha", 10, 9.0f);
+		Student b("Boba", 11, 10.0f);
+
+		a.longestDick(b).show();
+	}
+	
 	cout << "----------" << endl;
 }
