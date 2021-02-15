@@ -10,7 +10,7 @@ public:
 	Time();
 	Time(const int hour_, const int minute_);
 	void show();
-	const Time operator+(const Time& tb) const;
+	const Time operator +(const Time& tb) const;
 };
 
 void Time::correctMinute() {
@@ -39,7 +39,7 @@ void Time::show() {
 	cout << "Time: " << hour << " hour(s) " << ", " << minute << " minute(s) " << endl;
 }
 
-const Time Time::operator+(const Time& tb) const {
+const Time Time::operator +(const Time& tb) const {
 	const Time& ta = *this;
 	Time result;
 
