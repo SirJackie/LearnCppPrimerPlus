@@ -12,6 +12,7 @@ public:
 	void show();
 	const Time operator +(const Time& tb) const;
 	const Time operator -(const Time& tb) const;
+	const Time operator *(int weight) const;
 };
 
 void Time::correctMinute() {
@@ -63,6 +64,18 @@ const Time Time::operator -(const Time& tb) const {
 	return result;
 }
 
+const Time Time::operator *(int weight) const {
+	const Time& ta = *this;
+	Time result;
+
+	result.hour = 0;
+	result.minute = weight * (ta.hour * 60 + ta.minute);
+
+	result.correctMinute();
+
+	return result;
+}
+
 int main() {
 	Time t1, t2;
 	t1 = Time(2, 50);
@@ -71,9 +84,12 @@ int main() {
 	t1.show();
 	t2.show();
 
-	Time t3 = t1 + t2;
+	Time t3 = t1 + t2;  // t1 + t2 == t1.operator+(t2)
 	t3.show();
 
-	Time t4 = t2 - t1;
+	Time t4 = t2 - t1;  // t2 - t1 == t2.operator+(t2)
 	t4.show();
+
+	Time t5 = t1 * 5;   // t1 * 5  == t1.operator*(5)
+	t5.show();
 }
