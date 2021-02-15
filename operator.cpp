@@ -14,6 +14,7 @@ public:
 	const Time operator -(const Time& tb) const;
 	const Time operator *(int weight) const;
 	friend Time operator *(int weight, const Time& ta);
+	friend ostream& operator << (ostream& os, Time& time);
 };
 
 void Time::correctMinute() {
@@ -88,6 +89,11 @@ Time operator *(int weight, const Time& ta) {
 	return result;
 }
 
+ostream& operator << (ostream& os, Time& time) {
+	os << "Time: " << time.hour << " hour(s) " << ", " << time.minute << " minute(s) " << endl;
+	return os;
+}
+
 int main() {
 	Time t1, t2;
 	t1 = Time(2, 50);
@@ -110,4 +116,6 @@ int main() {
 
 	Time t6 = 5 * t1;     //  5 * t1 ==  operator*(5, t1), so this will work.
 	t6.show();
+
+	cout << t6 << "Last Sentence Was Outputed by Cout!" << endl;
 }
