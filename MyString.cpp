@@ -15,7 +15,7 @@ public:
 	~String();                               // 析构函数
 	String(const String& str);               // 复制构造函数
 	String& operator=(const String& str);    // 赋值运算符
-	operator char* ();                        // 转换函数
+	operator char* ();                       // 转换函数
 
 	friend ostream& operator<<(ostream& os, const String& str);   // 支持cout的重载
 	char& operator[](int i);                                      // 支持中括号访问的重载
