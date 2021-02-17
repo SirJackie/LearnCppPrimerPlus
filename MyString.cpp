@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <string.h>
 using namespace std;
@@ -28,40 +30,42 @@ String::String() {
 
 String::String(const char* str) {
 	length = strlen(str);
-	ptr = new char[length];
+	ptr = new char[length + 1];
 	strcpy(ptr, str);
 	strCounter += 1;
 	cout << "-----" << "普通构造函数 executing. " << "内容: " << ptr << "; strCounter: " << strCounter << "-----" << endl;
 }
 
 String::~String() {
-	strCounter -= 1;
-	cout << "-----" << "析构函数 executing. " << "内容: " << ptr << "; strCounter: " << strCounter << "-----" << endl;
+	cout << "-----" << "析构函数 executing. " << "内容: " << ptr;
 	delete[] ptr;
 	ptr = nullptr;
 	length = 0;
+
+	strCounter -= 1;
+	cout << "; strCounter: " << strCounter << "-----" << endl;
 }
 
 String::String(const String& str) {
-	String& self = *this;
-
-	self.length = str.length;
-	self.ptr = new char[self.length];
-	strcpy(self.ptr, str.ptr);
+	this->length = str.length;
+	this->ptr = new char[this->length + 1];
+	strcpy(this->ptr, str.ptr);
 
 	strCounter += 1;
 	cout << "-----" << "复制构造函数 executing. " << "内容: " << ptr << "; strCounter: " << strCounter << "-----" << endl;
 }
 
 String& String::operator=(const String& str) {
-	String self = *this;
+	delete[] this->ptr;
 
-	self.length = str.length;
-	self.ptr = new char[self.length];
-	strcpy(self.ptr, str.ptr);
+	this->length = str.length;
+	this->ptr = new char[this->length + 1];
+	strcpy(this->ptr, str.ptr);
 
-	strCounter += 1;
+	//strCounter += 1; // Important! 赋值运算符没有生成新对象！
 	cout << "-----" << "赋值运算符 executing. " << "内容: " << ptr << "; strCounter: " << strCounter << "-----" << endl;
+
+	return *this;
 }
 
 int main() {
