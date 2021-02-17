@@ -10,12 +10,16 @@ private:
 	int length;
 	static int strCounter;
 public:
-	String();
-	String(const char* str);
-	~String();
-	String(const String& str);
-	String& operator=(const String& str);
-	//friend operator<<(const ostream os, const String& str);
+	String();                                // 初始化构造函数
+	String(const char* str);                 // 普通构造函数(转换构造函数)
+	~String();                               // 析构函数
+	String(const String& str);               // 复制构造函数
+	String& operator=(const String& str);    // 赋值运算符
+	operator char* ();                        // 转换函数
+
+	friend ostream& operator<<(ostream& os, const String& str);   // 支持cout的重载
+	char& operator[](int i);                                      // 支持中括号访问的重载
+	int len();                                                    // 长度获取函数
 };
 
 int String::strCounter = 0;
@@ -68,6 +72,25 @@ String& String::operator=(const String& str) {
 	return *this;
 }
 
+ostream& operator<<(ostream& os, const String& str) {
+	os << str.ptr;
+	return os;
+}
+
+String::operator char* () {
+	char* newcharlist = new char[this->length + 1];
+	strcpy(newcharlist, this->ptr);
+	return newcharlist;
+}
+
+char& String::operator[](int i) {
+	return (this->ptr)[i];
+}
+
+int String::len() {
+	return length;
+}
+
 int main() {
 	String str0;                    // 初始化构造函数
 
@@ -83,6 +106,17 @@ int main() {
 
 	String str3;                    // 赋值运算符
 	str3 = str1;
+
+	cout << "----------" << endl;
+
+	// 尝试输出
+	cout << str1 << endl;
+	char* str1cpy = str1;
+	cout << str1cpy << endl;
+
+	for (int i = 0; i < str1.len(); i++) {
+		cout << "str1[" << i << "]" << " = " << str1[i] << endl;
+	}
 
 	cout << "----------" << endl;
 }
