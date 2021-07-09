@@ -15,7 +15,7 @@ public:
     string lastName;
     i32 age;
     Person(string fn, string ln, i32 ag) : firstName(fn), lastName(ln), age(ag) {}
-    void ShowInfo(){
+    virtual void ShowInfo(){
         cout << firstName << " " << lastName << ", " << age << " years old." << endl;
     }
 };
@@ -25,8 +25,9 @@ class Student : public Person{
 public:
     i32 grade;
     Student(string fn, string ln, i32 ag, i32 gd) : Person(fn, ln, ag), grade(gd) {}
-    void ShowGrade(){
-        cout << "Grade " << grade << endl;
+    virtual void ShowInfo(){
+        Person::ShowInfo();
+        cout << "The Grade of this student is: " << grade << endl;
     }
 };
 
@@ -37,5 +38,4 @@ int main(){
 
     Student st("Jackie", "Lin", 16, 9);
     st.ShowInfo();
-    st.ShowGrade();
 }
