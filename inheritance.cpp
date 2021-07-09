@@ -38,4 +38,10 @@ int main(){
 
     Student st("Jackie", "Lin", 16, 9);
     st.ShowInfo();
+
+    Person *psptr1 = &ps;
+    Person *psptr2 = &st;
+
+    psptr1->ShowInfo();
+    psptr2->ShowInfo();
 }
